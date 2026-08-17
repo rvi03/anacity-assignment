@@ -1,0 +1,218 @@
+# LLM track configuration.
+#
+# The shared pipeline's settings — residents, facilities, split
+# fractions, match tolerances — live in the file named below and are
+# never repeated here.
+
+shared_config: configs/default.yaml
+
+notification_buckets:
+  # Multiplicative width of one finite bucket. Must not exceed the
+  # shared match ratio squared, or a bucket is wider than the tolerance
+  # its representative has to cover.
+  ratio: 1.5
+
+  # One bucket below this, unbounded downwards.
+  floor_minutes: 60
+
+  # One bucket above this, unbounded upwards. Set to the training
+  # delay distribution's 99th percentile rounded up to a whole day, so
+  # the unbounded tail holds about one row in a hundred.
+  ceiling_days: 100
+
+  # A bucket with fewer training rows than this is merged into a
+  # neighbour until every bucket clears the threshold.
+  min_train_rows: 200
+
+  # A perfect bucket classifier must reach at least this notification
+  # match rate, or the representation is not worth training against.
+  ceiling_gate: 0.95
+
+  # Decimal places a representative is rounded to before any coverage
+  # is computed. Zero means whole minutes.
+  representative_decimals: 0
+
+prompt:
+  # Bumped whenever the template text changes. A new version means a
+  # new prompt hash and a cache that no longer matches.
+  version: 1
+
+  # Most recent prior bookings rendered in full. Older events are
+  # dropped first; the summaries carry what they held.
+  recent_events: 16
+
+  # Decimal places every rendered float is fixed to.
+  float_decimals: 2
+
+  change:
+    # Prior bookings needed before a behaviour change is judged at all.
+    min_priors: 20
+    # How many of the newest bookings count as recent.
+    recent_depth: 10
+    # Jensen-Shannon distance at or above which the flag is raised.
+    threshold: 0.25
+
+model:
+  # The pre-quantised artifact every scored answer comes from. A
+  # reviewer may substitute another openly licensed model here, but the
+  # result is then that model's, not this one's.
+  id: mlx-community/Qwen3-4B-Instruct-2507-4bit
+
+  # The immutable commit the artifact is fetched at. A tag or a branch
+  # would let the weights move under a recorded result.
+  revision: 7494131fd5b1fb6e2c9fadac095eb5ceacea06b5
+
+  # The unquantised model this artifact was converted from. Provenance
+  # only: it is never loaded and never generates.
+  upstream_id: Qwen/Qwen3-4B-Instruct-2507
+
+  # Files hashed into the runtime identity, so a silently swapped
+  # weight or tokenizer file cannot pass as the same run.
+  hashed_files:
+    - model.safetensors
+    - tokenizer.json
+    - config.json
+
+decoding:
+  # Longest answer accepted. The schema admits four short fields, so a
+  # run that reaches this has gone wrong rather than been cut off.
+  max_tokens: 96
+
+  # Sampling temperature. Zero is greedy: the same prompt and weights
+  # give the same tokens.
+  temperature: 0.0
+
+  # Deterministic retries after a completion fails to parse or
+  # validate. On the last failure the row becomes a typed failure and
+  # is never replaced by a guess.
+  retries: 1
+
+  # Compatibility fixtures the stack must pass before any generation is
+  # scored.
+  fixtures: 100
+
+  # Fixtures decoded a second time to show the path is repeatable.
+  repeat_fixtures: 10
+
+  # Fixtures whose per-row latency, token counts and rates are kept.
+  latency_fixtures: 20
+
+  # Lowest retry allowance carried into a compute projection, whatever
+  # the fixtures show.
+  retry_reserve_floor: 0.05
+
+  # Confidence level of the upper bound computed from observed fixture
+  # failures. The projection uses whichever allowance is larger.
+  retry_confidence: 0.95
+
+tuning:
+  # Adapter training only: the base weights stay in their quantised
+  # form and never receive a gradient.
+  fine_tune_type: lora
+  optimizer: adam
+
+  # Seeds the trainer's own draws, so two runs of the same pilot see
+  # the same batches in the same order.
+  training_seed: 20260811
+
+  # Transformer blocks that receive an adapter, counted from the top.
+  num_layers: 16
+
+  learning_rate: 1.0e-4
+
+  # Loss is taken on the answer tokens only. Without this the model is
+  # scored on reproducing the prompt it was given.
+  mask_prompt: true
+
+  # Recomputing activations trades time for memory. Off, so the pilot
+  # measures the same shape of run the full training will have.
+  grad_checkpoint: false
+
+  # One minibatch per step, four accumulated before the optimizer
+  # updates. Every iteration count below assumes exactly these.
+  batch_size: 1
+  grad_accumulation_steps: 4
+
+  # Validation batches per evaluation.
+  val_batches: 25
+
+  steps_per_report: 25
+
+  # Iterations between validations. The trainer also validates at the
+  # first and final iteration whatever this is set to.
+  steps_per_eval: 500
+
+  # Longest sequence the trainer keeps whole; longer ones are cut.
+  max_seq_length: 2048
+
+  lora_parameters:
+    rank: 8
+    dropout: 0.0
+    scale: 20.0
+
+pilot:
+  # A fixed, deliberately small run whose purpose is measurement: how
+  # long an iteration takes here and how much memory it needs.
+  train_rows: 200
+
+  # Passes over those rows, and the resulting minibatch iterations.
+  epoch_equivalent: 2
+  iters: 400
+
+  # Training rows drawn per notification label before the remaining
+  # slots are filled uniformly, so no label is absent by accident. The
+  # draw is therefore not prevalence-representative.
+  min_rows_per_label: 5
+
+  # Seeds the pilot draw.
+  sample_seed: 20260811
+
+tier_b:
+  # The declared full-training size. The training split is far larger;
+  # a run over all of it would exhaust the compute cap on its own.
+  train_rows: 2000
+  epoch_equivalent: 3
+  iters: 6000
+
+  # Seeds the uniform draw of those rows from the training split.
+  sample_seed: 20260811
+
+# Walked in order, timing only, stopping at the first step that fits.
+# The first step is the declared full-training size above.
+ladder:
+  - train_rows: 2000
+    epoch_equivalent: 3
+  - train_rows: 2000
+    epoch_equivalent: 2
+  - train_rows: 2000
+    epoch_equivalent: 1
+  - train_rows: 1000
+    epoch_equivalent: 1
+
+compute:
+  # Unattended compute the whole repository may spend, in hours. Shared
+  # with the other track, not an allowance for this one.
+  cap_hours: 4.0
+
+  # Measured end-to-end runtime of the shared pipeline, in seconds.
+  # Raise it when that pipeline's measured runtime changes.
+  shared_pipeline_seconds: 25.5
+
+  # Validation rows in the gate manifest, and the passes scored over
+  # them: one without an adapter, one with the pilot adapter.
+  gate_rows: 200
+  gate_passes: 2
+
+gate:
+  # Seeds the gate manifest draw. The manifest is frozen once and both
+  # passes answer the same rows, so the two are paired row by row.
+  sample_seed: 20260811
+
+  # Prior-booking counts the manifest is stratified by, alongside the
+  # target facility. Each edge opens a band that runs up to the next.
+  history_bins: [1, 3, 10, 30]
+
+  # Paired resamples behind the interval that decides the gate, and the
+  # confidence that interval carries.
+  bootstrap_resamples: 2000
+  bootstrap_confidence: 0.95

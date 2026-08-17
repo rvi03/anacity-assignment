@@ -1,0 +1,29 @@
+# Environment
+.venv/
+.env
+
+# Tool caches
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+*.pyc
+
+# Editor and OS
+.idea/
+.DS_Store
+
+# Regenerable run state: model weights, rendered prompts, trainer logs.
+# Hundreds of megabytes, every byte of it rebuilt from the seed.
+runs/
+
+# CatBoost writes here when allow_writing_files is on
+catboost_info/
+
+# Property-test database
+.hypothesis/
+
+# Agent tooling: kept locally, not part of the submission
+CLAUDE.md
+AGENTS.md
+.claude/

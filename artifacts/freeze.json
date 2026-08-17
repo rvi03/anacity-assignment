@@ -1,0 +1,19 @@
+{
+  "track": "traditional",
+  "config_hash": "09cd7e3b453171ef68a96754bb85e640a8f488a28e9aff80677f2c706b335e37",
+  "seed": 20260811,
+  "head_sources": {
+    "facility": "catboost",
+    "usage_weekday": "frequency_recency",
+    "usage_hour": "catboost",
+    "notification": "catboost"
+  },
+  "digests": {
+    "seed": 20260811,
+    "timezone": "Asia/Kolkata",
+    "config_hash": "09cd7e3b453171ef68a96754bb85e640a8f488a28e9aff80677f2c706b335e37",
+    "bookings_digest": "c8262da62195d4d61a2504254bbe7d54188a9aad628e5b1b4acb346dd2ed7428",
+    "samples_digest": "72884031eedd878652b37594140d2dc063f228c9349f2cd8d2513793785e6aa0",
+    "features_digest": "518c6d63a3d8f152fb3474ab6466b052734d29fce8f905f139e7e478547d1409"
+  }
+}

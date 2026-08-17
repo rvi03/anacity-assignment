@@ -1,0 +1,16 @@
+{
+  "track": "traditional",
+  "config_hash": "09cd7e3b453171ef68a96754bb85e640a8f488a28e9aff80677f2c706b335e37",
+  "head_sources": {
+    "facility": "catboost",
+    "usage_weekday": "frequency_recency",
+    "usage_hour": "catboost",
+    "notification": "catboost"
+  },
+  "rows_scored": 3596,
+  "headline": {
+    "selection_score": 0.2460372636262514,
+    "baseline_selection_score": 0.2460372636262514,
+    "catboost_selection_score": 0.24402113459399333
+  }
+}

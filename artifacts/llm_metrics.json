@@ -1,0 +1,147 @@
+{
+  "evidence": "measured",
+  "gate": "the prediction hash is frozen before any holdout target is read",
+  "freeze": {
+    "predictions_file": "artifacts/llm_predictions.jsonl",
+    "predictions_sha256": "5223e69b3ebdffedff2924b6507b96dd0b07ca0aba8bdbe34bb6ffb883a7a3c9",
+    "rows": 500
+  },
+  "context": {
+    "rows": 500,
+    "stored_rows": 500,
+    "model": "tier_b_adapter",
+    "split": "test",
+    "manifest_sha256": "4203084f47fbab308b86e861857a36efd045618a0670ce3defefe29bc35bbb95",
+    "adapter": "runs/llm_adapter/tier_b",
+    "replayed": true
+  },
+  "rates": {
+    "facility": 0.312,
+    "usage_weekday": 0.28,
+    "usage_hour": 0.21,
+    "notification": 0.072,
+    "score_mean": 0.874,
+    "overall": 0.2185,
+    "strict": 0.0,
+    "at_least_three": 0.024,
+    "bucket_accuracy": 0.058,
+    "bucket_macro_f1": 0.011179132286398722,
+    "match_over_ceiling": 0.07543141093208854,
+    "valid": 1.0
+  },
+  "operational": {
+    "rows": 500.0,
+    "valid": 500.0,
+    "failed": 0.0,
+    "retried": 0.0,
+    "semantic_invalid": 1.0,
+    "latency_p50_seconds": 4.433795187499527,
+    "latency_p95_seconds": 4.567258356850198,
+    "elapsed_seconds": 2185.3408609679955,
+    "prompt_tokens_mean": 1495.026,
+    "completion_tokens_mean": 39.682
+  },
+  "confusion": {
+    "M1362_2009": {
+      "M2009_2963": 27,
+      "M20658_30461": 2
+    },
+    "M14010_20658": {
+      "M2009_2963": 40,
+      "M20658_30461": 5
+    },
+    "M2009_2963": {
+      "M2009_2963": 24,
+      "M20658_30461": 11
+    },
+    "M20658_30461": {
+      "M2009_2963": 36,
+      "M20658_30461": 5
+    },
+    "M287_424": {
+      "M2009_2963": 9,
+      "M20658_30461": 1
+    },
+    "M2963_4369": {
+      "M2009_2963": 41,
+      "M20658_30461": 2
+    },
+    "M30461_44916": {
+      "M2009_2963": 23,
+      "M20658_30461": 2
+    },
+    "M424_626": {
+      "M2009_2963": 6,
+      "M20658_30461": 2
+    },
+    "M4369_6443": {
+      "M2009_2963": 37,
+      "M20658_30461": 8
+    },
+    "M44916_66230": {
+      "M2009_2963": 18,
+      "M20658_30461": 6
+    },
+    "M626_923": {
+      "M2009_2963": 15,
+      "M20658_30461": 5
+    },
+    "M6443_9501": {
+      "M2009_2963": 45,
+      "M20658_30461": 6
+    },
+    "M66230_97658": {
+      "M2009_2963": 15,
+      "M20658_30461": 3
+    },
+    "M923_1362": {
+      "M2009_2963": 16,
+      "M20658_30461": 3
+    },
+    "M9501_14010": {
+      "M2009_2963": 42,
+      "M20658_30461": 7
+    },
+    "OVER_97658M": {
+      "M2009_2963": 4,
+      "M20658_30461": 4
+    },
+    "UNDER_287M": {
+      "M2009_2963": 26,
+      "M20658_30461": 4
+    }
+  },
+  "support": {
+    "M1362_2009": 29,
+    "M14010_20658": 45,
+    "M2009_2963": 35,
+    "M20658_30461": 41,
+    "M287_424": 10,
+    "M2963_4369": 43,
+    "M30461_44916": 25,
+    "M424_626": 8,
+    "M4369_6443": 45,
+    "M44916_66230": 24,
+    "M626_923": 20,
+    "M6443_9501": 51,
+    "M66230_97658": 18,
+    "M923_1362": 19,
+    "M9501_14010": 49,
+    "OVER_97658M": 8,
+    "UNDER_287M": 30
+  },
+  "comparator": {
+    "model": "frequency_recency",
+    "rates": {
+      "facility": 0.38,
+      "usage_weekday": 0.308,
+      "usage_hour": 0.204,
+      "notification": 0.112,
+      "score_mean": 1.004,
+      "overall": 0.251,
+      "strict": 0.0,
+      "at_least_three": 0.034
+    },
+    "delta_overall": -0.0325
+  }
+}

@@ -1,0 +1,245 @@
+{
+  "settings": {
+    "ratio": 1.5,
+    "floor_minutes": 60,
+    "ceiling_days": 100,
+    "min_train_rows": 200,
+    "ceiling_gate": 0.95,
+    "representative_decimals": 0,
+    "notification_match_ratio": 1.25
+  },
+  "labels": [
+    "UNDER_287M",
+    "M287_424",
+    "M424_626",
+    "M626_923",
+    "M923_1362",
+    "M1362_2009",
+    "M2009_2963",
+    "M2963_4369",
+    "M4369_6443",
+    "M6443_9501",
+    "M9501_14010",
+    "M14010_20658",
+    "M20658_30461",
+    "M30461_44916",
+    "M44916_66230",
+    "M66230_97658",
+    "OVER_97658M"
+  ],
+  "buckets": [
+    {
+      "label": "UNDER_287M",
+      "lower_minutes": 0.0,
+      "upper_minutes": 287.36129658423215,
+      "representative_minutes": 132.0,
+      "representative_source": "training_median",
+      "train_rows": 614,
+      "training_coverage": 0.22312703583061888
+    },
+    {
+      "label": "M287_424",
+      "lower_minutes": 287.36129658423215,
+      "upper_minutes": 424.1955917222264,
+      "representative_minutes": 349.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 246,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "M424_626",
+      "lower_minutes": 424.1955917222264,
+      "upper_minutes": 625.9610150931053,
+      "representative_minutes": 515.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 315,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "M626_923",
+      "lower_minutes": 625.9610150931053,
+      "upper_minutes": 923.4689317084221,
+      "representative_minutes": 760.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 428,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "M923_1362",
+      "lower_minutes": 923.4689317084221,
+      "upper_minutes": 1362.151432258025,
+      "representative_minutes": 1122.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 685,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "M1362_2009",
+      "lower_minutes": 1362.151432258025,
+      "upper_minutes": 2008.9992152610005,
+      "representative_minutes": 1654.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 863,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "M2009_2963",
+      "lower_minutes": 2008.9992152610005,
+      "upper_minutes": 2962.7916593444957,
+      "representative_minutes": 2440.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 982,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "M2963_4369",
+      "lower_minutes": 2962.7916593444957,
+      "upper_minutes": 4369.1813081849305,
+      "representative_minutes": 3598.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 1140,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "M4369_6443",
+      "lower_minutes": 4369.1813081849305,
+      "upper_minutes": 6442.936302402903,
+      "representative_minutes": 5306.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 1321,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "M6443_9501",
+      "lower_minutes": 6442.936302402903,
+      "upper_minutes": 9500.737374523793,
+      "representative_minutes": 7824.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 1323,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "M9501_14010",
+      "lower_minutes": 9500.737374523793,
+      "upper_minutes": 14009.537798264122,
+      "representative_minutes": 11537.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 1331,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "M14010_20658",
+      "lower_minutes": 14009.537798264122,
+      "upper_minutes": 20657.871284202985,
+      "representative_minutes": 17012.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 1249,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "M20658_30461",
+      "lower_minutes": 20657.871284202985,
+      "upper_minutes": 30460.997168313195,
+      "representative_minutes": 25085.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 1190,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "M30461_44916",
+      "lower_minutes": 30460.997168313195,
+      "upper_minutes": 44915.93949377931,
+      "representative_minutes": 36989.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 900,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "M44916_66230",
+      "lower_minutes": 44915.93949377931,
+      "upper_minutes": 66230.09582540719,
+      "representative_minutes": 54542.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 595,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "M66230_97658",
+      "lower_minutes": 66230.09582540719,
+      "upper_minutes": 97658.32638491035,
+      "representative_minutes": 80423.0,
+      "representative_source": "geometric_midpoint",
+      "train_rows": 394,
+      "training_coverage": 1.0
+    },
+    {
+      "label": "OVER_97658M",
+      "lower_minutes": 97658.32638491035,
+      "upper_minutes": null,
+      "representative_minutes": 133648.0,
+      "representative_source": "training_median",
+      "train_rows": 339,
+      "training_coverage": 0.5398230088495575
+    }
+  ],
+  "merges": [
+    {
+      "merged": [
+        "UNDER_60M",
+        "M60_89"
+      ],
+      "into": "UNDER_89M",
+      "train_rows_before": [
+        142,
+        52
+      ]
+    },
+    {
+      "merged": [
+        "UNDER_89M",
+        "M89_132"
+      ],
+      "into": "UNDER_132M",
+      "train_rows_before": [
+        194,
+        112
+      ]
+    },
+    {
+      "merged": [
+        "UNDER_132M",
+        "M132_195"
+      ],
+      "into": "UNDER_195M",
+      "train_rows_before": [
+        306,
+        130
+      ]
+    },
+    {
+      "merged": [
+        "UNDER_195M",
+        "M195_287"
+      ],
+      "into": "UNDER_287M",
+      "train_rows_before": [
+        436,
+        178
+      ]
+    },
+    {
+      "merged": [
+        "M97658_144000",
+        "OVER_144000M"
+      ],
+      "into": "OVER_97658M",
+      "train_rows_before": [
+        200,
+        139
+      ]
+    }
+  ],
+  "representation_ceiling": 0.954509522098455,
+  "ceiling_gate": 0.95,
+  "gate_passed": true
+}

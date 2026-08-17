@@ -1,0 +1,933 @@
+{
+  "provenance": {
+    "seed": 20260811,
+    "timezone": "Asia/Kolkata",
+    "config_hash": "09cd7e3b453171ef68a96754bb85e640a8f488a28e9aff80677f2c706b335e37",
+    "bookings_digest": "c8262da62195d4d61a2504254bbe7d54188a9aad628e5b1b4acb346dd2ed7428",
+    "samples_digest": "72884031eedd878652b37594140d2dc063f228c9349f2cd8d2513793785e6aa0",
+    "features_digest": "518c6d63a3d8f152fb3474ab6466b052734d29fce8f905f139e7e478547d1409"
+  },
+  "versions": {
+    "catboost": "1.2.10"
+  },
+  "training": {
+    "model": "catboost",
+    "track": "traditional",
+    "iterations": 1500,
+    "iteration_search": true,
+    "inner_validation_frac": 0.15,
+    "searched_iterations": {
+      "facility": 144,
+      "usage_weekday": 100,
+      "usage_hour": 18,
+      "notification": 129
+    },
+    "notification_decode": "window",
+    "notification_framing": "absolute",
+    "facility_framing": "multiclass",
+    "notification_calibration": null,
+    "use_best_model": false,
+    "early_stopping": false,
+    "evaluation_set_passed": false,
+    "task_type": "CPU",
+    "thread_count": 10,
+    "seed": 20260811,
+    "audited_fit_rows": 13915,
+    "categorical_features": [
+      "resident_profile_id",
+      "last_1_facility",
+      "last_2_facility",
+      "last_3_facility",
+      "rolling_top_facility_last_3",
+      "rolling_top_facility_last_5",
+      "rolling_top_facility_last_10"
+    ],
+    "heads": {
+      "facility": {
+        "params": {
+          "loss_function": "MultiClass",
+          "iterations": 144,
+          "depth": 6,
+          "learning_rate": 0.08,
+          "l2_leaf_reg": 7.0,
+          "random_seed": 20260811,
+          "task_type": "CPU",
+          "thread_count": 10,
+          "use_best_model": false,
+          "allow_writing_files": false,
+          "verbose": false,
+          "bootstrap_type": "Bernoulli",
+          "subsample": 0.8
+        },
+        "trees": 144,
+        "rows": 13915,
+        "fit_seconds": 6.082
+      },
+      "usage_weekday": {
+        "params": {
+          "loss_function": "MultiClass",
+          "iterations": 100,
+          "depth": 6,
+          "learning_rate": 0.08,
+          "l2_leaf_reg": 7.0,
+          "random_seed": 20260812,
+          "task_type": "CPU",
+          "thread_count": 10,
+          "use_best_model": false,
+          "allow_writing_files": false,
+          "verbose": false,
+          "bootstrap_type": "Bernoulli",
+          "subsample": 0.8
+        },
+        "trees": 100,
+        "rows": 13915,
+        "fit_seconds": 3.474
+      },
+      "usage_hour": {
+        "params": {
+          "loss_function": "MultiClass",
+          "iterations": 18,
+          "depth": 6,
+          "learning_rate": 0.08,
+          "l2_leaf_reg": 7.0,
+          "random_seed": 20260813,
+          "task_type": "CPU",
+          "thread_count": 10,
+          "use_best_model": false,
+          "allow_writing_files": false,
+          "verbose": false,
+          "bootstrap_type": "Bernoulli",
+          "subsample": 0.8
+        },
+        "trees": 18,
+        "rows": 13915,
+        "fit_seconds": 2.877
+      },
+      "notification": {
+        "params": {
+          "loss_function": "MultiClass",
+          "iterations": 129,
+          "depth": 6,
+          "learning_rate": 0.08,
+          "l2_leaf_reg": 7.0,
+          "random_seed": 20260814,
+          "task_type": "CPU",
+          "thread_count": 10,
+          "use_best_model": false,
+          "allow_writing_files": false,
+          "verbose": false,
+          "bootstrap_type": "MVS"
+        },
+        "trees": 129,
+        "rows": 13915,
+        "fit_seconds": 31.758
+      }
+    }
+  },
+  "fits": {
+    "primary": 4,
+    "stretch_budget": 25,
+    "stretch_completed": 0,
+    "stopping_point": "primary heads only; no stretch fit ran"
+  },
+  "verification": {
+    "band": "A",
+    "band_b_checks": {
+      "future_perturbation_property_test": "shipped",
+      "shuffled_label_negative_control": "shipped",
+      "extended_distribution_profiles": "shipped",
+      "semantic_xlsx_style_comparison": "not built"
+    },
+    "note": "Band A, not B: three of the four deeper checks ship and the fourth does not. The workbook is compared by content hash, not by cell style."
+  },
+  "test": {
+    "split": "test",
+    "holdout_scored": true,
+    "scored_once": true,
+    "frozen_config_hash": "09cd7e3b453171ef68a96754bb85e640a8f488a28e9aff80677f2c706b335e37",
+    "head_sources": {
+      "facility": "catboost",
+      "usage_weekday": "frequency_recency",
+      "usage_hour": "catboost",
+      "notification": "catboost"
+    },
+    "rows": 3596,
+    "champion": {
+      "rows": 3596,
+      "heads": {
+        "facility": {
+          "accuracy": 0.3756952169076752,
+          "macro_f1": 0.3465158821276241,
+          "per_class_recall": {
+            "Badminton": 0.34977578475336324,
+            "Basketball": 0.257985257985258,
+            "Clubhouse": 0.4557823129251701,
+            "Gym": 0.4919724770642202,
+            "Multipurpose Hall": 0.3456221198156682,
+            "Pool": 0.44765342960288806,
+            "Tennis": 0.27058823529411763,
+            "Yoga Room": 0.14106583072100312
+          }
+        },
+        "usage_weekday": {
+          "accuracy": 0.28448275862068967,
+          "macro_f1": 0.24583373987990573,
+          "per_class_recall": {
+            "0": 0.18527918781725888,
+            "1": 0.2222222222222222,
+            "2": 0.17548746518105848,
+            "3": 0.1588089330024814,
+            "4": 0.14047619047619048,
+            "5": 0.4305381727158949,
+            "6": 0.40644361833952913
+          }
+        },
+        "usage_hour": {
+          "accuracy": 0.203559510567297,
+          "macro_f1": 0.11198595003971344,
+          "per_class_recall": {
+            "5": 0.0,
+            "6": 0.806930693069307,
+            "7": 0.12876712328767123,
+            "8": 0.05389221556886228,
+            "9": 0.07142857142857142,
+            "10": 0.047619047619047616,
+            "11": 0.3288590604026846,
+            "12": 0.021897810218978103,
+            "13": 0.13636363636363635,
+            "14": 0.0,
+            "15": 0.07575757575757576,
+            "16": 0.0,
+            "17": 0.05741626794258373,
+            "18": 0.2661290322580645,
+            "19": 0.4084507042253521,
+            "20": 0.17355371900826447,
+            "21": 0.0,
+            "22": 0.0
+          },
+          "circular_mae_hours": 2.0767519466073416,
+          "within_1_hour": 0.5225250278086763
+        },
+        "notification": {
+          "submitted": {
+            "mae_minutes": 16369.01238100478,
+            "median_ae_minutes": 5257.870734410568,
+            "p90_ae_minutes": 39256.58351132873,
+            "signed_bias_minutes": -9441.535618980748,
+            "median_abs_log_ratio": 1.008785029758628,
+            "within_30_minutes": 0.002224694104560623,
+            "within_60_minutes": 0.005005561735261402,
+            "within_180_minutes": 0.017519466073414907
+          },
+          "raw": {
+            "mae_minutes": 16369.01238100478,
+            "median_ae_minutes": 5257.870734410568,
+            "p90_ae_minutes": 39256.58351132873,
+            "signed_bias_minutes": -9441.535618980748,
+            "median_abs_log_ratio": 1.008785029758628,
+            "within_30_minutes": 0.002224694104560623,
+            "within_60_minutes": 0.005005561735261402,
+            "within_180_minutes": 0.017519466073414907
+          },
+          "clamp_rate": 0.0
+        }
+      },
+      "matches": {
+        "facility": 0.3756952169076752,
+        "usage_weekday": 0.28448275862068967,
+        "usage_hour": 0.203559510567297,
+        "notification": 0.12041156840934371,
+        "score_mean": 0.9841490545050056,
+        "overall": 0.2460372636262514,
+        "strict": 0.004449388209121246,
+        "at_least_three": 0.039488320355951054
+      }
+    },
+    "model": {
+      "rows": 3596,
+      "heads": {
+        "facility": {
+          "accuracy": 0.3756952169076752,
+          "macro_f1": 0.3465158821276241,
+          "per_class_recall": {
+            "Badminton": 0.34977578475336324,
+            "Basketball": 0.257985257985258,
+            "Clubhouse": 0.4557823129251701,
+            "Gym": 0.4919724770642202,
+            "Multipurpose Hall": 0.3456221198156682,
+            "Pool": 0.44765342960288806,
+            "Tennis": 0.27058823529411763,
+            "Yoga Room": 0.14106583072100312
+          }
+        },
+        "usage_weekday": {
+          "accuracy": 0.2764182424916574,
+          "macro_f1": 0.2149569983815204,
+          "per_class_recall": {
+            "0": 0.1700507614213198,
+            "1": 0.0893719806763285,
+            "2": 0.11977715877437325,
+            "3": 0.22332506203473945,
+            "4": 0.05238095238095238,
+            "5": 0.5306633291614519,
+            "6": 0.3853779429987608
+          }
+        },
+        "usage_hour": {
+          "accuracy": 0.203559510567297,
+          "macro_f1": 0.11198595003971344,
+          "per_class_recall": {
+            "5": 0.0,
+            "6": 0.806930693069307,
+            "7": 0.12876712328767123,
+            "8": 0.05389221556886228,
+            "9": 0.07142857142857142,
+            "10": 0.047619047619047616,
+            "11": 0.3288590604026846,
+            "12": 0.021897810218978103,
+            "13": 0.13636363636363635,
+            "14": 0.0,
+            "15": 0.07575757575757576,
+            "16": 0.0,
+            "17": 0.05741626794258373,
+            "18": 0.2661290322580645,
+            "19": 0.4084507042253521,
+            "20": 0.17355371900826447,
+            "21": 0.0,
+            "22": 0.0
+          },
+          "circular_mae_hours": 2.0767519466073416,
+          "within_1_hour": 0.5225250278086763
+        },
+        "notification": {
+          "submitted": {
+            "mae_minutes": 16369.01238100478,
+            "median_ae_minutes": 5257.870734410568,
+            "p90_ae_minutes": 39256.58351132873,
+            "signed_bias_minutes": -9441.535618980748,
+            "median_abs_log_ratio": 1.008785029758628,
+            "within_30_minutes": 0.002224694104560623,
+            "within_60_minutes": 0.005005561735261402,
+            "within_180_minutes": 0.017519466073414907
+          },
+          "raw": {
+            "mae_minutes": 16369.01238100478,
+            "median_ae_minutes": 5257.870734410568,
+            "p90_ae_minutes": 39256.58351132873,
+            "signed_bias_minutes": -9441.535618980748,
+            "median_abs_log_ratio": 1.008785029758628,
+            "within_30_minutes": 0.002224694104560623,
+            "within_60_minutes": 0.005005561735261402,
+            "within_180_minutes": 0.017519466073414907
+          },
+          "clamp_rate": 0.0
+        }
+      },
+      "matches": {
+        "facility": 0.3756952169076752,
+        "usage_weekday": 0.2764182424916574,
+        "usage_hour": 0.203559510567297,
+        "notification": 0.12041156840934371,
+        "score_mean": 0.9760845383759733,
+        "overall": 0.24402113459399333,
+        "strict": 0.0027808676307007787,
+        "at_least_three": 0.03837597330367074
+      }
+    },
+    "baseline": {
+      "rows": 3596,
+      "heads": {
+        "facility": {
+          "accuracy": 0.37652947719688545,
+          "macro_f1": 0.3394212310760273,
+          "per_class_recall": {
+            "Badminton": 0.2982062780269058,
+            "Basketball": 0.2751842751842752,
+            "Clubhouse": 0.45351473922902497,
+            "Gym": 0.5206422018348624,
+            "Multipurpose Hall": 0.3548387096774194,
+            "Pool": 0.4747292418772563,
+            "Tennis": 0.25588235294117645,
+            "Yoga Room": 0.0877742946708464
+          }
+        },
+        "usage_weekday": {
+          "accuracy": 0.28448275862068967,
+          "macro_f1": 0.24583373987990573,
+          "per_class_recall": {
+            "0": 0.18527918781725888,
+            "1": 0.2222222222222222,
+            "2": 0.17548746518105848,
+            "3": 0.1588089330024814,
+            "4": 0.14047619047619048,
+            "5": 0.4305381727158949,
+            "6": 0.40644361833952913
+          }
+        },
+        "usage_hour": {
+          "accuracy": 0.20411568409343714,
+          "macro_f1": 0.14624015387096734,
+          "per_class_recall": {
+            "5": 0.14201183431952663,
+            "6": 0.44801980198019803,
+            "7": 0.273972602739726,
+            "8": 0.15269461077844312,
+            "9": 0.18214285714285713,
+            "10": 0.09523809523809523,
+            "11": 0.12751677852348994,
+            "12": 0.19708029197080293,
+            "13": 0.05454545454545454,
+            "14": 0.05,
+            "15": 0.045454545454545456,
+            "16": 0.041379310344827586,
+            "17": 0.06220095693779904,
+            "18": 0.22580645161290322,
+            "19": 0.3415492957746479,
+            "20": 0.3140495867768595,
+            "21": 0.0,
+            "22": 0.0
+          },
+          "circular_mae_hours": 2.4268631813125694,
+          "within_1_hour": 0.5086206896551724
+        },
+        "notification": {
+          "submitted": {
+            "mae_minutes": 16401.704532814238,
+            "median_ae_minutes": 5647.5,
+            "p90_ae_minutes": 35360.0,
+            "signed_bias_minutes": -7385.154199110122,
+            "median_abs_log_ratio": 0.9734718348713399,
+            "within_30_minutes": 0.001946607341490545,
+            "within_60_minutes": 0.0052836484983314795,
+            "within_180_minutes": 0.01668520578420467
+          },
+          "raw": {
+            "mae_minutes": 16401.704532814238,
+            "median_ae_minutes": 5647.5,
+            "p90_ae_minutes": 35360.0,
+            "signed_bias_minutes": -7385.154199110122,
+            "median_abs_log_ratio": 0.9734718348713399,
+            "within_30_minutes": 0.001946607341490545,
+            "within_60_minutes": 0.0052836484983314795,
+            "within_180_minutes": 0.01668520578420467
+          },
+          "clamp_rate": 0.0
+        }
+      },
+      "matches": {
+        "facility": 0.37652947719688545,
+        "usage_weekday": 0.28448275862068967,
+        "usage_hour": 0.20411568409343714,
+        "notification": 0.11902113459399333,
+        "score_mean": 0.9841490545050056,
+        "overall": 0.2460372636262514,
+        "strict": 0.002502780867630701,
+        "at_least_three": 0.04310344827586207
+      }
+    },
+    "comparison": {
+      "selection_score": {
+        "model": 0.2460372636262514,
+        "baseline": 0.2460372636262514,
+        "verdict": "ties"
+      },
+      "match_lift": {
+        "facility": {
+          "model": 0.3756952169076752,
+          "baseline": 0.37652947719688545,
+          "absolute": -0.0008342602892102424,
+          "relative": -0.0022156573116691516
+        },
+        "usage_weekday": {
+          "model": 0.28448275862068967,
+          "baseline": 0.28448275862068967,
+          "absolute": 0.0,
+          "relative": 0.0
+        },
+        "usage_hour": {
+          "model": 0.203559510567297,
+          "baseline": 0.20411568409343714,
+          "absolute": -0.0005561735261401524,
+          "relative": -0.0027247956403269593
+        },
+        "notification": {
+          "model": 0.12041156840934371,
+          "baseline": 0.11902113459399333,
+          "absolute": 0.001390433815350381,
+          "relative": 0.011682242990654134
+        },
+        "overall": {
+          "model": 0.2460372636262514,
+          "baseline": 0.2460372636262514,
+          "absolute": 0.0,
+          "relative": 0.0
+        },
+        "strict": {
+          "model": 0.004449388209121246,
+          "baseline": 0.002502780867630701,
+          "absolute": 0.001946607341490545,
+          "relative": 0.7777777777777778
+        }
+      },
+      "mae_reduction": {
+        "model": 16369.01238100478,
+        "baseline": 16401.704532814238,
+        "absolute": 32.692151809456846,
+        "relative": 0.0019932167259842926
+      }
+    },
+    "catboost_comparison": {
+      "selection_score": {
+        "model": 0.24402113459399333,
+        "baseline": 0.2460372636262514,
+        "verdict": "loses"
+      },
+      "match_lift": {
+        "facility": {
+          "model": 0.3756952169076752,
+          "baseline": 0.37652947719688545,
+          "absolute": -0.0008342602892102424,
+          "relative": -0.0022156573116691516
+        },
+        "usage_weekday": {
+          "model": 0.2764182424916574,
+          "baseline": 0.28448275862068967,
+          "absolute": -0.008064516129032251,
+          "relative": -0.02834799608993155
+        },
+        "usage_hour": {
+          "model": 0.203559510567297,
+          "baseline": 0.20411568409343714,
+          "absolute": -0.0005561735261401524,
+          "relative": -0.0027247956403269593
+        },
+        "notification": {
+          "model": 0.12041156840934371,
+          "baseline": 0.11902113459399333,
+          "absolute": 0.001390433815350381,
+          "relative": 0.011682242990654134
+        },
+        "overall": {
+          "model": 0.24402113459399333,
+          "baseline": 0.2460372636262514,
+          "absolute": -0.0020161290322580627,
+          "relative": -0.00819440519920881
+        },
+        "strict": {
+          "model": 0.0027808676307007787,
+          "baseline": 0.002502780867630701,
+          "absolute": 0.0002780867630700779,
+          "relative": 0.11111111111111113
+        }
+      },
+      "mae_reduction": {
+        "model": 16369.01238100478,
+        "baseline": 16401.704532814238,
+        "absolute": 32.692151809456846,
+        "relative": 0.0019932167259842926
+      }
+    }
+  },
+  "review": {
+    "split": "test",
+    "rows": 11288,
+    "csv_sha256": "86d9793167d1d8f4af70d801031b89e509b5b9b2a0be8b78aa4013dcd33244f3"
+  },
+  "validation": {
+    "split": "validation",
+    "holdout_scored": false,
+    "rows": 3437,
+    "model": {
+      "rows": 3437,
+      "heads": {
+        "facility": {
+          "accuracy": 0.3599068955484434,
+          "macro_f1": 0.3351252331884742,
+          "per_class_recall": {
+            "Badminton": 0.375,
+            "Basketball": 0.2528409090909091,
+            "Clubhouse": 0.38308457711442784,
+            "Gym": 0.4939759036144578,
+            "Multipurpose Hall": 0.33185840707964603,
+            "Pool": 0.39622641509433965,
+            "Tennis": 0.2409972299168975,
+            "Yoga Room": 0.175
+          },
+          "top_3_accuracy": 0.7119581029967995
+        },
+        "usage_weekday": {
+          "accuracy": 0.2601105615362235,
+          "macro_f1": 0.21570154674265604,
+          "per_class_recall": {
+            "0": 0.17592592592592593,
+            "1": 0.0948905109489051,
+            "2": 0.1394736842105263,
+            "3": 0.2113022113022113,
+            "4": 0.07455012853470437,
+            "5": 0.46808510638297873,
+            "6": 0.394109396914446
+          },
+          "top_3_accuracy": 0.604015129473378
+        },
+        "usage_hour": {
+          "accuracy": 0.2074483561245272,
+          "macro_f1": 0.11221469925798683,
+          "per_class_recall": {
+            "5": 0.0,
+            "6": 0.7728395061728395,
+            "7": 0.13019390581717452,
+            "8": 0.05067567567567568,
+            "9": 0.06896551724137931,
+            "10": 0.03821656050955414,
+            "11": 0.22727272727272727,
+            "12": 0.006802721088435374,
+            "13": 0.1016949152542373,
+            "14": 0.0,
+            "15": 0.04854368932038835,
+            "16": 0.04516129032258064,
+            "17": 0.030612244897959183,
+            "18": 0.27598566308243727,
+            "19": 0.4576923076923077,
+            "20": 0.2904761904761905,
+            "21": 0.0,
+            "22": 0.0
+          },
+          "top_3_accuracy": 0.5382601105615362,
+          "circular_mae_hours": 2.214140238580157,
+          "within_1_hour": 0.5205120744835613
+        },
+        "notification": {
+          "submitted": {
+            "mae_minutes": 16925.14274221352,
+            "median_ae_minutes": 5574.048538737674,
+            "p90_ae_minutes": 41935.62356255194,
+            "signed_bias_minutes": -9239.640771431397,
+            "median_abs_log_ratio": 0.99519491502137,
+            "within_30_minutes": 0.003200465522257783,
+            "within_60_minutes": 0.005528076811172534,
+            "within_180_minutes": 0.019202793133546697
+          },
+          "raw": {
+            "mae_minutes": 16925.14274221352,
+            "median_ae_minutes": 5574.048538737674,
+            "p90_ae_minutes": 41935.62356255194,
+            "signed_bias_minutes": -9239.640771431397,
+            "median_abs_log_ratio": 0.99519491502137,
+            "within_30_minutes": 0.003200465522257783,
+            "within_60_minutes": 0.005528076811172534,
+            "within_180_minutes": 0.019202793133546697
+          },
+          "clamp_rate": 0.0
+        }
+      },
+      "matches": {
+        "facility": 0.3599068955484434,
+        "usage_weekday": 0.2601105615362235,
+        "usage_hour": 0.2074483561245272,
+        "notification": 0.1312190864125691,
+        "score_mean": 0.9586848996217632,
+        "overall": 0.2396712249054408,
+        "strict": 0.002036659877800407,
+        "at_least_three": 0.04160605178935118
+      }
+    },
+    "baseline": {
+      "rows": 3437,
+      "heads": {
+        "facility": {
+          "accuracy": 0.3526331102705848,
+          "macro_f1": 0.3236358717481985,
+          "per_class_recall": {
+            "Badminton": 0.3245192307692308,
+            "Basketball": 0.3068181818181818,
+            "Clubhouse": 0.39552238805970147,
+            "Gym": 0.4939759036144578,
+            "Multipurpose Hall": 0.3584070796460177,
+            "Pool": 0.37735849056603776,
+            "Tennis": 0.2520775623268698,
+            "Yoga Room": 0.0875
+          }
+        },
+        "usage_weekday": {
+          "accuracy": 0.2618562700029095,
+          "macro_f1": 0.23508651818681023,
+          "per_class_recall": {
+            "0": 0.18287037037037038,
+            "1": 0.21654501216545013,
+            "2": 0.15,
+            "3": 0.20147420147420148,
+            "4": 0.13367609254498714,
+            "5": 0.38865248226950355,
+            "6": 0.3744740532959327
+          }
+        },
+        "usage_hour": {
+          "accuracy": 0.18649985452429443,
+          "macro_f1": 0.13887148654749265,
+          "per_class_recall": {
+            "5": 0.1366120218579235,
+            "6": 0.47160493827160493,
+            "7": 0.16897506925207756,
+            "8": 0.16216216216216217,
+            "9": 0.15763546798029557,
+            "10": 0.11464968152866242,
+            "11": 0.14393939393939395,
+            "12": 0.08163265306122448,
+            "13": 0.11864406779661017,
+            "14": 0.09401709401709402,
+            "15": 0.07766990291262135,
+            "16": 0.07096774193548387,
+            "17": 0.05612244897959184,
+            "18": 0.1935483870967742,
+            "19": 0.25769230769230766,
+            "20": 0.2761904761904762,
+            "21": 0.010526315789473684,
+            "22": 0.0
+          },
+          "circular_mae_hours": 2.5158568519057316,
+          "within_1_hour": 0.49403549607215597
+        },
+        "notification": {
+          "submitted": {
+            "mae_minutes": 17393.55600814664,
+            "median_ae_minutes": 6198.0,
+            "p90_ae_minutes": 35861.3,
+            "signed_bias_minutes": -7602.800989234798,
+            "median_abs_log_ratio": 0.9724154203345466,
+            "within_30_minutes": 0.0017457084666860634,
+            "within_60_minutes": 0.003782368344486471,
+            "within_180_minutes": 0.014838521966831539
+          },
+          "raw": {
+            "mae_minutes": 17393.55600814664,
+            "median_ae_minutes": 6198.0,
+            "p90_ae_minutes": 35861.3,
+            "signed_bias_minutes": -7602.800989234798,
+            "median_abs_log_ratio": 0.9724154203345466,
+            "within_30_minutes": 0.0017457084666860634,
+            "within_60_minutes": 0.003782368344486471,
+            "within_180_minutes": 0.014838521966831539
+          },
+          "clamp_rate": 0.0
+        }
+      },
+      "matches": {
+        "facility": 0.3526331102705848,
+        "usage_weekday": 0.2618562700029095,
+        "usage_hour": 0.18649985452429443,
+        "notification": 0.12685481524585393,
+        "score_mean": 0.9278440500436427,
+        "overall": 0.23196101251091067,
+        "strict": 0.003200465522257783,
+        "at_least_three": 0.03607797497817864
+      }
+    },
+    "champion": {
+      "model": "selected_heads",
+      "head_sources": {
+        "facility": "catboost",
+        "usage_weekday": "frequency_recency",
+        "usage_hour": "catboost",
+        "notification": "catboost"
+      },
+      "candidate_order": [
+        "frequency_recency",
+        "catboost"
+      ],
+      "selection_split": "validation",
+      "report": {
+        "rows": 3437,
+        "heads": {
+          "facility": {
+            "accuracy": 0.3599068955484434,
+            "macro_f1": 0.3351252331884742,
+            "per_class_recall": {
+              "Badminton": 0.375,
+              "Basketball": 0.2528409090909091,
+              "Clubhouse": 0.38308457711442784,
+              "Gym": 0.4939759036144578,
+              "Multipurpose Hall": 0.33185840707964603,
+              "Pool": 0.39622641509433965,
+              "Tennis": 0.2409972299168975,
+              "Yoga Room": 0.175
+            }
+          },
+          "usage_weekday": {
+            "accuracy": 0.2618562700029095,
+            "macro_f1": 0.23508651818681023,
+            "per_class_recall": {
+              "0": 0.18287037037037038,
+              "1": 0.21654501216545013,
+              "2": 0.15,
+              "3": 0.20147420147420148,
+              "4": 0.13367609254498714,
+              "5": 0.38865248226950355,
+              "6": 0.3744740532959327
+            }
+          },
+          "usage_hour": {
+            "accuracy": 0.2074483561245272,
+            "macro_f1": 0.11221469925798683,
+            "per_class_recall": {
+              "5": 0.0,
+              "6": 0.7728395061728395,
+              "7": 0.13019390581717452,
+              "8": 0.05067567567567568,
+              "9": 0.06896551724137931,
+              "10": 0.03821656050955414,
+              "11": 0.22727272727272727,
+              "12": 0.006802721088435374,
+              "13": 0.1016949152542373,
+              "14": 0.0,
+              "15": 0.04854368932038835,
+              "16": 0.04516129032258064,
+              "17": 0.030612244897959183,
+              "18": 0.27598566308243727,
+              "19": 0.4576923076923077,
+              "20": 0.2904761904761905,
+              "21": 0.0,
+              "22": 0.0
+            },
+            "circular_mae_hours": 2.214140238580157,
+            "within_1_hour": 0.5205120744835613
+          },
+          "notification": {
+            "submitted": {
+              "mae_minutes": 16925.14274221352,
+              "median_ae_minutes": 5574.048538737674,
+              "p90_ae_minutes": 41935.62356255194,
+              "signed_bias_minutes": -9239.640771431397,
+              "median_abs_log_ratio": 0.99519491502137,
+              "within_30_minutes": 0.003200465522257783,
+              "within_60_minutes": 0.005528076811172534,
+              "within_180_minutes": 0.019202793133546697
+            },
+            "raw": {
+              "mae_minutes": 16925.14274221352,
+              "median_ae_minutes": 5574.048538737674,
+              "p90_ae_minutes": 41935.62356255194,
+              "signed_bias_minutes": -9239.640771431397,
+              "median_abs_log_ratio": 0.99519491502137,
+              "within_30_minutes": 0.003200465522257783,
+              "within_60_minutes": 0.005528076811172534,
+              "within_180_minutes": 0.019202793133546697
+            },
+            "clamp_rate": 0.0
+          }
+        },
+        "matches": {
+          "facility": 0.3599068955484434,
+          "usage_weekday": 0.2618562700029095,
+          "usage_hour": 0.2074483561245272,
+          "notification": 0.1312190864125691,
+          "score_mean": 0.9604306080884493,
+          "overall": 0.24010765202211232,
+          "strict": 0.0011638056444573757,
+          "at_least_three": 0.039278440500436426
+        }
+      }
+    },
+    "comparison": {
+      "selection_score": {
+        "model": 0.24010765202211232,
+        "baseline": 0.23196101251091067,
+        "verdict": "beats"
+      },
+      "match_lift": {
+        "facility": {
+          "model": 0.3599068955484434,
+          "baseline": 0.3526331102705848,
+          "absolute": 0.007273785277858602,
+          "relative": 0.02062706270627064
+        },
+        "usage_weekday": {
+          "model": 0.2618562700029095,
+          "baseline": 0.2618562700029095,
+          "absolute": 0.0,
+          "relative": 0.0
+        },
+        "usage_hour": {
+          "model": 0.2074483561245272,
+          "baseline": 0.18649985452429443,
+          "absolute": 0.02094850160023276,
+          "relative": 0.11232449297971919
+        },
+        "notification": {
+          "model": 0.1312190864125691,
+          "baseline": 0.12685481524585393,
+          "absolute": 0.004364271166715172,
+          "relative": 0.034403669724770755
+        },
+        "overall": {
+          "model": 0.24010765202211232,
+          "baseline": 0.23196101251091067,
+          "absolute": 0.008146639511201648,
+          "relative": 0.03512072750078402
+        },
+        "strict": {
+          "model": 0.0011638056444573757,
+          "baseline": 0.003200465522257783,
+          "absolute": -0.0020366598778004076,
+          "relative": -0.6363636363636365
+        }
+      },
+      "mae_reduction": {
+        "model": 16925.14274221352,
+        "baseline": 17393.55600814664,
+        "absolute": 468.41326593311896,
+        "relative": 0.026930276115690654
+      }
+    },
+    "catboost_comparison": {
+      "selection_score": {
+        "model": 0.2396712249054408,
+        "baseline": 0.23196101251091067,
+        "verdict": "beats"
+      },
+      "match_lift": {
+        "facility": {
+          "model": 0.3599068955484434,
+          "baseline": 0.3526331102705848,
+          "absolute": 0.007273785277858602,
+          "relative": 0.02062706270627064
+        },
+        "usage_weekday": {
+          "model": 0.2601105615362235,
+          "baseline": 0.2618562700029095,
+          "absolute": -0.0017457084666860356,
+          "relative": -0.00666666666666656
+        },
+        "usage_hour": {
+          "model": 0.2074483561245272,
+          "baseline": 0.18649985452429443,
+          "absolute": 0.02094850160023276,
+          "relative": 0.11232449297971919
+        },
+        "notification": {
+          "model": 0.1312190864125691,
+          "baseline": 0.12685481524585393,
+          "absolute": 0.004364271166715172,
+          "relative": 0.034403669724770755
+        },
+        "overall": {
+          "model": 0.2396712249054408,
+          "baseline": 0.23196101251091067,
+          "absolute": 0.007710212394530125,
+          "relative": 0.03323925995609914
+        },
+        "strict": {
+          "model": 0.002036659877800407,
+          "baseline": 0.003200465522257783,
+          "absolute": -0.0011638056444573759,
+          "relative": -0.3636363636363637
+        }
+      },
+      "mae_reduction": {
+        "model": 16925.14274221352,
+        "baseline": 17393.55600814664,
+        "absolute": 468.41326593311896,
+        "relative": 0.026930276115690654
+      }
+    }
+  }
+}
