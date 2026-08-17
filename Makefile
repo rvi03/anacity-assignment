@@ -1,7 +1,7 @@
 UV ?= uv
 COMPOSE ?= docker compose -f docker/compose.yaml
 
-.PHONY: all check lint typecheck test test-llm llm-reproduce verify-rigour test-rigour fmt up down down-v logs ps
+.PHONY: all check lint typecheck test test-llm llm-reproduce review-ui verify-rigour test-rigour fmt up down down-v logs ps
 
 ## all: the whole pipeline, end to end, into the artifacts directory
 all: up
@@ -33,6 +33,11 @@ llm-reproduce: up
 	$(UV) run python -m facility_prediction.cli llm-final --from-cache
 	$(UV) run python -m facility_prediction.cli llm-review
 	$(UV) run pytest tests/llm/test_replay.py
+
+## review-ui: rebuild the filterable HTML view of the predictions
+review-ui: up
+	$(UV) run python -m facility_prediction.cli review
+	@echo "open artifacts/predictions_review.html"
 
 ## verify: recompute every committed value and compare
 verify: up

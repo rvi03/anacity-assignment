@@ -25,7 +25,7 @@ from facility_prediction.cli.paths import (
     REVIEW_SPLIT,
 )
 from facility_prediction.data import generate, samples, split, storage
-from facility_prediction.evaluation import review
+from facility_prediction.evaluation import review, review_html
 from facility_prediction.models import train
 
 _LOGGER = logging.getLogger(__name__)
@@ -36,6 +36,7 @@ def run_review(
     workbook: pathlib.Path,
     csv: pathlib.Path,
     metrics: pathlib.Path | None = None,
+    page: pathlib.Path | None = None,
 ) -> None:
     """Render every track's predictions into the shared workbook.
 
@@ -51,6 +52,8 @@ def run_review(
             nowhere, which is what a test rendering to a scratch
             directory wants — writing it to the shipped record would
             stamp a smoke workbook's hash onto the real one.
+        page: Destination for the filterable HTML view of the same
+            rows. None skips it.
     """
     rendered_split, reason = review_split(DEFAULT_SEAL)
     with storage.engine_scope(config) as engine:
@@ -100,6 +103,9 @@ def run_review(
         },
         workbook,
     )
+    if page is not None:
+        review_html.write_page(sheet, rendered_split, reason, page)
+
     # Recorded beside the metrics so `verify` has something to compare
     # the workbook against rather than trusting that it was rebuilt.
     if metrics is not None and metrics.is_file():
@@ -125,6 +131,7 @@ def run_llm_review(
     config: config_module.Config,
     workbook: pathlib.Path,
     csv: pathlib.Path,
+    page: pathlib.Path | None = None,
 ) -> None:
     """Render the shared workbook with this track's holdout rows added.
 
@@ -140,6 +147,8 @@ def run_llm_review(
         config: Validated configuration.
         workbook: Destination ``.xlsx``.
         csv: Destination CSV carrying the same rows.
+        page: Destination for the filterable HTML view of the same
+            rows. None skips it.
     """
     with storage.engine_scope(config) as engine:
         bookings = storage.read_table(engine, storage.BOOKINGS, config)
@@ -187,6 +196,9 @@ def run_llm_review(
         rows=len(sheet),
         reason=LLM_REVIEW_REASON,
     )
+    if page is not None:
+        review_html.write_page(sheet, coverage.split, coverage.reason, page)
+
     digest = review.write_csv(sheet, csv)
     review.write_workbook(
         {

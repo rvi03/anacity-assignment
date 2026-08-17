@@ -260,6 +260,9 @@ def _add_llm_final_parsers(
     review_parser.add_argument(
         "--csv", type=pathlib.Path, default=paths.DEFAULT_REVIEW_CSV
     )
+    review_parser.add_argument(
+        "--page", type=pathlib.Path, default=paths.DEFAULT_REVIEW_PAGE
+    )
 
 
 def _add_freeze_parsers(
@@ -443,6 +446,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     review_parser.add_argument(
         "--metrics", type=pathlib.Path, default=paths.DEFAULT_METRICS
+    )
+    review_parser.add_argument(
+        "--page", type=pathlib.Path, default=paths.DEFAULT_REVIEW_PAGE
     )
     profile_parser = sub.add_parser(
         "profile",

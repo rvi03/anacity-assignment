@@ -29,7 +29,7 @@ from __future__ import annotations
 import pathlib
 
 from facility_prediction.data import profiles, split
-from facility_prediction.evaluation import ablations, errors
+from facility_prediction.evaluation import ablations, errors, review_html
 from facility_prediction.evaluation import freeze as freeze_module
 
 DEFAULT_CONFIG = pathlib.Path("configs") / "default.yaml"
@@ -59,6 +59,7 @@ DEFAULT_ABLATIONS = _ARTIFACTS / ablations.REPORT_FILENAME
 DEFAULT_METRICS = _ARTIFACTS / "metrics.json"
 DEFAULT_WORKBOOK = _ARTIFACTS / "predictions_review.xlsx"
 DEFAULT_REVIEW_CSV = _ARTIFACTS / "predictions_review.csv"
+DEFAULT_REVIEW_PAGE = _ARTIFACTS / review_html.PAGE_FILENAME
 DEFAULT_PROFILE_PLOTS = _ARTIFACTS / "plots"
 
 # 2.7 MB for all four heads, and the brief asks for the model

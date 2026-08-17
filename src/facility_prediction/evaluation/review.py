@@ -52,7 +52,7 @@ MATCH_FALSE = "✗"
 
 _MINUTES_IN_HOUR = 60.0
 _TIMESTAMP_FORMAT = "%a %Y-%m-%d %H:%M"
-_HISTORY_SEPARATOR = " ⏎ "
+HISTORY_SEPARATOR = " ⏎ "
 
 PREDICTION_SHEET_COLUMNS = (
     "track",
@@ -253,7 +253,7 @@ def history_strings(
         past = history.loc[history["booking_timestamp"] <= origin]
         recent = past.iloc[-depth:][::-1] if depth else past.iloc[:0]
         rendered.append(
-            _HISTORY_SEPARATOR.join(
+            HISTORY_SEPARATOR.join(
                 f"{row.facility_id} / "
                 f"{_weekday_name(row.usage_timestamp.weekday())} / "
                 f"{_hour_label(row.usage_timestamp.hour)} / "

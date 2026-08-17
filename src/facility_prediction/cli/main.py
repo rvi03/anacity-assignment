@@ -52,7 +52,7 @@ def _dispatch(args: argparse.Namespace, config: config_module.Config) -> None:
             config, args.models, args.metrics
         ),
         "review": lambda: review.run_review(
-            config, args.workbook, args.csv, args.metrics
+            config, args.workbook, args.csv, args.metrics, args.page
         ),
         "profile": lambda: analysis.run_profile(
             config, args.profile, args.plots
@@ -128,7 +128,7 @@ def _dispatch(args: argparse.Namespace, config: config_module.Config) -> None:
             args.from_cache,
         ),
         "llm-review": lambda: review.run_llm_review(
-            config, args.workbook, args.csv
+            config, args.workbook, args.csv, args.page
         ),
         "llm-final": lambda: llm_scoring.run_llm_final(
             config,
@@ -185,6 +185,7 @@ def _run_pipeline(
         paths.DEFAULT_WORKBOOK,
         paths.DEFAULT_REVIEW_CSV,
         paths.DEFAULT_METRICS,
+        paths.DEFAULT_REVIEW_PAGE,
     )
 
 
